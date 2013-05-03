@@ -1,0 +1,10 @@
+{
+    "codeintel_config": {
+        "Python": {
+            "env": {
+                "PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
+                "PYTHONPATH": "/workspace/github/.envs/django15/bin/python"
+            }
+        }
+    }
+}
