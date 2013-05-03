@@ -44,6 +44,7 @@ class Post(TimeStampedModel):
     permalink = models.URLField(blank=True)
     categories = models.ManyToManyField(Category)
     replies = models.ManyToManyField(Reply, blank=True)
+    reply_enabled = models.BooleanField(default=True)
 
     def __unicode__(self):
         return self.title
