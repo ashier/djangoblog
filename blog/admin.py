@@ -3,7 +3,26 @@ from blog.models import Post, Category, Reply
 
 
 class PostAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('title', 'author', 'created', 'modified')
+    list_filter = ('created', 'modified')
+    search_fields = ('title', 'content')
+    prepopulated_fields = {'slug': ('title',)}
+
+    fieldsets = [
+        ('Post', {
+            'fields': ('title', 'content', 'categories')
+        }),
+        ('Author', {
+            'classes': ('collapse',),
+            'fields': ('author',)
+        }),
+        ('History', {
+            'classes': ('collapse',),
+            'fields': ('created', 'modified')
+        })
+    ]
+
+    readonly_fields = ('created', 'modified')
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -11,7 +30,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class ReplyAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('fullname', 'email', 'website')
 
 
 admin.site.register(Post, PostAdmin)

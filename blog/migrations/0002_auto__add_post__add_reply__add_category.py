@@ -15,8 +15,9 @@ class Migration(SchemaMigration):
             ('modified', self.gf('model_utils.fields.AutoLastModifiedField')(default=datetime.datetime.now)),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=128)),
             ('content', self.gf('django.db.models.fields.TextField')()),
-            ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('permalink', self.gf('django.db.models.fields.URLField')(max_length=200, blank=True)),
+            ('author', self.gf('django.db.models.fields.related.ForeignKey')(related_name='posts', to=orm['auth.User'])),
+            ('slug', self.gf('autoslug.fields.AutoSlugField')(unique_with=(), max_length=50, populate_from='title')),
+            ('reply_enabled', self.gf('django.db.models.fields.BooleanField')(default=True)),
         ))
         db.send_create_signal(u'blog', ['Post'])
 
@@ -110,14 +111,15 @@ class Migration(SchemaMigration):
         },
         u'blog.post': {
             'Meta': {'ordering': "('created',)", 'object_name': 'Post'},
-            'author': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
+            'author': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'posts'", 'to': u"orm['auth.User']"}),
             'categories': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['blog.Category']", 'symmetrical': 'False'}),
             'content': ('django.db.models.fields.TextField', [], {}),
             'created': ('model_utils.fields.AutoCreatedField', [], {'default': 'datetime.datetime.now'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified': ('model_utils.fields.AutoLastModifiedField', [], {'default': 'datetime.datetime.now'}),
-            'permalink': ('django.db.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'}),
             'replies': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['blog.Reply']", 'symmetrical': 'False', 'blank': 'True'}),
+            'reply_enabled': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'slug': ('autoslug.fields.AutoSlugField', [], {'unique_with': '()', 'max_length': '50', 'populate_from': "'title'"}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '128'})
         },
         u'blog.reply': {
