@@ -12,6 +12,9 @@ TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = ['*']
 
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = '00d2ppwoqyn1m4!@!cbhnf4x%ovttuwkgzv9k4vlk(xy^xev%&'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
