@@ -1,6 +1,8 @@
 prod.txt
 prod.py
 
+*.sublime-project
+*.sublime-workspace
 *.log
 *.pot
 *.pyc
