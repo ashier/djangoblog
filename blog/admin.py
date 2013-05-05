@@ -1,39 +1,44 @@
 from django.contrib import admin
-from blog.models import Post, Category, Reply
+from blog.models import Post, Category, Comment
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'created', 'modified')
-    list_filter = ('created', 'modified')
-    search_fields = ('title', 'content')
-    prepopulated_fields = {'slug': ('title',)}
+    list_display = ('title', 'author', 'slug', 'created', 'modified',)
+    list_filter = ('created', 'modified',)
+    search_fields = ('title', 'content',)
 
     fieldsets = [
         ('Post', {
-            'fields': ('title', 'content', 'categories')
+            'fields': ('title', 'content', 'comments_allowed',)
         }),
         ('Author', {
-            'classes': ('collapse',),
             'fields': ('author',)
         }),
         ('History', {
             'classes': ('collapse',),
-            'fields': ('created', 'modified')
+            'fields': ('created', 'modified',)
         })
     ]
 
-    readonly_fields = ('created', 'modified')
+    readonly_fields = ('created', 'modified',)
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'slug',)
 
 
-class ReplyAdmin(admin.ModelAdmin):
-    list_display = ('fullname', 'email', 'website')
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('fullname', 'email', 'website',)
+    fieldsets = [
+        ('Comment Fields', {
+            'fields': ('post', 'fullname', 'email', 'website', 'message',)
+        }),
+        ('Flags', {
+            'fields': ('is_spam',)
+        }),
+    ]
 
 
 admin.site.register(Post, PostAdmin)
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(Reply, ReplyAdmin)
-
+admin.site.register(Comment, CommentAdmin)

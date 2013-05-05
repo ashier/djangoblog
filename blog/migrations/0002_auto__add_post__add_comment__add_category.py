@@ -15,30 +15,14 @@ class Migration(SchemaMigration):
             ('modified', self.gf('model_utils.fields.AutoLastModifiedField')(default=datetime.datetime.now)),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=128)),
             ('content', self.gf('django.db.models.fields.TextField')()),
-            ('author', self.gf('django.db.models.fields.related.ForeignKey')(related_name='posts', to=orm['auth.User'])),
+            ('author', self.gf('django.db.models.fields.related.ForeignKey')(related_name='author', to=orm['auth.User'])),
             ('slug', self.gf('autoslug.fields.AutoSlugField')(unique_with=(), max_length=50, populate_from='title')),
-            ('reply_enabled', self.gf('django.db.models.fields.BooleanField')(default=True)),
+            ('comments_allowed', self.gf('django.db.models.fields.BooleanField')(default=True)),
         ))
         db.send_create_signal(u'blog', ['Post'])
 
-        # Adding M2M table for field categories on 'Post'
-        db.create_table(u'blog_post_categories', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('post', models.ForeignKey(orm[u'blog.post'], null=False)),
-            ('category', models.ForeignKey(orm[u'blog.category'], null=False))
-        ))
-        db.create_unique(u'blog_post_categories', ['post_id', 'category_id'])
-
-        # Adding M2M table for field replies on 'Post'
-        db.create_table(u'blog_post_replies', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('post', models.ForeignKey(orm[u'blog.post'], null=False)),
-            ('reply', models.ForeignKey(orm[u'blog.reply'], null=False))
-        ))
-        db.create_unique(u'blog_post_replies', ['post_id', 'reply_id'])
-
-        # Adding model 'Reply'
-        db.create_table(u'blog_reply', (
+        # Adding model 'Comment'
+        db.create_table(u'blog_comment', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('created', self.gf('model_utils.fields.AutoCreatedField')(default=datetime.datetime.now)),
             ('modified', self.gf('model_utils.fields.AutoLastModifiedField')(default=datetime.datetime.now)),
@@ -46,32 +30,40 @@ class Migration(SchemaMigration):
             ('email', self.gf('django.db.models.fields.CharField')(max_length=128, blank=True)),
             ('message', self.gf('django.db.models.fields.TextField')(blank=True)),
             ('website', self.gf('django.db.models.fields.URLField')(max_length=200, null=True, blank=True)),
+            ('post', self.gf('django.db.models.fields.related.ForeignKey')(related_name='comments', to=orm['blog.Post'])),
+            ('is_spam', self.gf('django.db.models.fields.BooleanField')(default=False)),
         ))
-        db.send_create_signal(u'blog', ['Reply'])
+        db.send_create_signal(u'blog', ['Comment'])
 
         # Adding model 'Category'
         db.create_table(u'blog_category', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=128)),
+            ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=128)),
+            ('slug', self.gf('autoslug.fields.AutoSlugField')(unique_with=(), max_length=50, populate_from='name')),
         ))
         db.send_create_signal(u'blog', ['Category'])
+
+        # Adding M2M table for field post on 'Category'
+        db.create_table(u'blog_category_post', (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('category', models.ForeignKey(orm[u'blog.category'], null=False)),
+            ('post', models.ForeignKey(orm[u'blog.post'], null=False))
+        ))
+        db.create_unique(u'blog_category_post', ['category_id', 'post_id'])
 
 
     def backwards(self, orm):
         # Deleting model 'Post'
         db.delete_table(u'blog_post')
 
-        # Removing M2M table for field categories on 'Post'
-        db.delete_table('blog_post_categories')
-
-        # Removing M2M table for field replies on 'Post'
-        db.delete_table('blog_post_replies')
-
-        # Deleting model 'Reply'
-        db.delete_table(u'blog_reply')
+        # Deleting model 'Comment'
+        db.delete_table(u'blog_comment')
 
         # Deleting model 'Category'
         db.delete_table(u'blog_category')
+
+        # Removing M2M table for field post on 'Category'
+        db.delete_table('blog_category_post')
 
 
     models = {
@@ -107,30 +99,32 @@ class Migration(SchemaMigration):
         u'blog.category': {
             'Meta': {'ordering': "('name',)", 'object_name': 'Category'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '128'})
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '128'}),
+            'post': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['blog.Post']", 'null': 'True', 'blank': 'True'}),
+            'slug': ('autoslug.fields.AutoSlugField', [], {'unique_with': '()', 'max_length': '50', 'populate_from': "'name'"})
         },
-        u'blog.post': {
-            'Meta': {'ordering': "('created',)", 'object_name': 'Post'},
-            'author': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'posts'", 'to': u"orm['auth.User']"}),
-            'categories': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['blog.Category']", 'symmetrical': 'False'}),
-            'content': ('django.db.models.fields.TextField', [], {}),
-            'created': ('model_utils.fields.AutoCreatedField', [], {'default': 'datetime.datetime.now'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'modified': ('model_utils.fields.AutoLastModifiedField', [], {'default': 'datetime.datetime.now'}),
-            'replies': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['blog.Reply']", 'symmetrical': 'False', 'blank': 'True'}),
-            'reply_enabled': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'slug': ('autoslug.fields.AutoSlugField', [], {'unique_with': '()', 'max_length': '50', 'populate_from': "'title'"}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '128'})
-        },
-        u'blog.reply': {
-            'Meta': {'object_name': 'Reply'},
+        u'blog.comment': {
+            'Meta': {'ordering': "('-created',)", 'object_name': 'Comment'},
             'created': ('model_utils.fields.AutoCreatedField', [], {'default': 'datetime.datetime.now'}),
             'email': ('django.db.models.fields.CharField', [], {'max_length': '128', 'blank': 'True'}),
             'fullname': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'is_spam': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'message': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'modified': ('model_utils.fields.AutoLastModifiedField', [], {'default': 'datetime.datetime.now'}),
+            'post': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'comments'", 'to': u"orm['blog.Post']"}),
             'website': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
+        },
+        u'blog.post': {
+            'Meta': {'ordering': "('-created',)", 'object_name': 'Post'},
+            'author': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'author'", 'to': u"orm['auth.User']"}),
+            'comments_allowed': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'content': ('django.db.models.fields.TextField', [], {}),
+            'created': ('model_utils.fields.AutoCreatedField', [], {'default': 'datetime.datetime.now'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'modified': ('model_utils.fields.AutoLastModifiedField', [], {'default': 'datetime.datetime.now'}),
+            'slug': ('autoslug.fields.AutoSlugField', [], {'unique_with': '()', 'max_length': '50', 'populate_from': "'title'"}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '128'})
         },
         u'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},

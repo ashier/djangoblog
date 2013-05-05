@@ -13,50 +13,20 @@ class UserFullName(User):
         return self.get_full_name()
 
 
-class Category(models.Model):
-    """Post Category"""
-
-    name = models.CharField(max_length=128)
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        ordering = ('name',)
-        verbose_name_plural = "Categories"
-
-
-class Reply(TimeStampedModel):
-    """Post Comments"""
-
-    fullname = models.CharField(max_length=128)
-    email = models.CharField(max_length=128, blank=True)
-    message = models.TextField(blank=True)
-    website = models.URLField(blank=True, null=True)
-
-    def __unicode__(self):
-        return self.fullname
-
-    class Meta:
-        verbose_name_plural = "Replies"
-
-
 class Post(TimeStampedModel):
     """Post"""
 
     title = models.CharField(max_length=128)
     content = models.TextField()
-    author = models.ForeignKey(UserFullName, related_name="posts")
-    categories = models.ManyToManyField(Category)
+    author = models.ForeignKey(UserFullName, related_name="author")
     slug = AutoSlugField(populate_from='title')
-    replies = models.ManyToManyField(Reply, blank=True)
-    reply_enabled = models.BooleanField(default=True)
+    comments_allowed = models.BooleanField(default=True)
 
     def __unicode__(self):
         return self.title
 
     class Meta:
-        ordering = ('created',)
+        ordering = ('-created',)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -65,4 +35,49 @@ class Post(TimeStampedModel):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('post_detail', None, { 'slug': self.slug })
+        return ('post_detail', None, {'slug': self.slug})
+
+
+class CommentManager(models.Manager):
+    def get_query_set(self):
+        return super(CommentManager, self).get_query_set().filter(is_spam=False)
+
+
+class Comment(TimeStampedModel):
+    """Post Comments"""
+
+    fullname = models.CharField(max_length=128)
+    email = models.CharField(max_length=128, blank=True)
+    message = models.TextField(blank=True)
+    website = models.URLField(blank=True, null=True)
+    post = models.ForeignKey(Post, related_name="comments")
+    is_spam = models.BooleanField(default=False)
+
+    objects = CommentManager()
+
+    def __unicode__(self):
+        return self.fullname
+
+    class Meta:
+        ordering = ('-created',)
+        verbose_name_plural = "comments"
+
+
+class Category(models.Model):
+    """Post Category"""
+
+    name = models.CharField(max_length=128, unique=True)
+    slug = AutoSlugField(populate_from='name')
+    post = models.ManyToManyField(Post, blank=True, null=True)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name_plural = "Categories"
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)

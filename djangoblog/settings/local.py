@@ -4,6 +4,14 @@ from .base import *
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+# Hosts/domain names that are valid for this site; required if DEBUG is False
+# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
+
+# DISQUS_API_KEY = '4QPXB0KLZpJSW58asYblShy92ANAuogEYpAYzfOPr7dcYRY1cuizkl1dSouCzH1v'
+# DISQUS_WEBSITE_SHORTNAME = 'ashier.com'
+
+ALLOWED_HOSTS = ['*']
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -23,13 +31,13 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_admin_bootstrapped',
     'django.contrib.admin',
     #'django.contrib.admindocs',
+    # 'disqus',
     'south',
     'autoslug',
     'tastypie',
     'model_utils',
     'blog',
-    'api',
+    'api_v10',
 )
