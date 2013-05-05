@@ -2,4 +2,4 @@
 djangoblog
 ==========
 
-Django-based blog for ashier.com
+Django-based blogging application levereging BackboneJS, Twitter Bootstrap and RESTful API using Django-TastyPie
