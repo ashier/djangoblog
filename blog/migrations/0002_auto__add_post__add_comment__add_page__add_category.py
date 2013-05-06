@@ -14,7 +14,7 @@ class Migration(SchemaMigration):
             ('created', self.gf('model_utils.fields.AutoCreatedField')(default=datetime.datetime.now)),
             ('modified', self.gf('model_utils.fields.AutoLastModifiedField')(default=datetime.datetime.now)),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=128)),
-            ('content', self.gf('django.db.models.fields.TextField')()),
+            ('content', self.gf('tinymce.models.HTMLField')()),
             ('author', self.gf('django.db.models.fields.related.ForeignKey')(related_name='author', to=orm['auth.User'])),
             ('slug', self.gf('autoslug.fields.AutoSlugField')(unique_with=(), max_length=50, populate_from='title')),
             ('comments_allowed', self.gf('django.db.models.fields.BooleanField')(default=True)),
@@ -34,6 +34,15 @@ class Migration(SchemaMigration):
             ('is_spam', self.gf('django.db.models.fields.BooleanField')(default=False)),
         ))
         db.send_create_signal(u'blog', ['Comment'])
+
+        # Adding model 'Page'
+        db.create_table(u'blog_page', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=128)),
+            ('slug', self.gf('autoslug.fields.AutoSlugField')(unique_with=(), max_length=50, populate_from='name')),
+            ('content', self.gf('tinymce.models.HTMLField')()),
+        ))
+        db.send_create_signal(u'blog', ['Page'])
 
         # Adding model 'Category'
         db.create_table(u'blog_category', (
@@ -58,6 +67,9 @@ class Migration(SchemaMigration):
 
         # Deleting model 'Comment'
         db.delete_table(u'blog_comment')
+
+        # Deleting model 'Page'
+        db.delete_table(u'blog_page')
 
         # Deleting model 'Category'
         db.delete_table(u'blog_category')
@@ -115,11 +127,18 @@ class Migration(SchemaMigration):
             'post': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'comments'", 'to': u"orm['blog.Post']"}),
             'website': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
         },
+        u'blog.page': {
+            'Meta': {'object_name': 'Page'},
+            'content': ('tinymce.models.HTMLField', [], {}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '128'}),
+            'slug': ('autoslug.fields.AutoSlugField', [], {'unique_with': '()', 'max_length': '50', 'populate_from': "'name'"})
+        },
         u'blog.post': {
             'Meta': {'ordering': "('-created',)", 'object_name': 'Post'},
             'author': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'author'", 'to': u"orm['auth.User']"}),
             'comments_allowed': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'content': ('django.db.models.fields.TextField', [], {}),
+            'content': ('tinymce.models.HTMLField', [], {}),
             'created': ('model_utils.fields.AutoCreatedField', [], {'default': 'datetime.datetime.now'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified': ('model_utils.fields.AutoLastModifiedField', [], {'default': 'datetime.datetime.now'}),

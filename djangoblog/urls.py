@@ -16,6 +16,7 @@ v1_api.register(CommentResource())
 urlpatterns = patterns('',
     url(r'^api/', include(v1_api.urls)),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^tinymce/', include('tinymce.urls')),
     #url(r'^blog/', include('blog.urls')),
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 )

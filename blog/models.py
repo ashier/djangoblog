@@ -3,6 +3,7 @@ from model_utils.models import TimeStampedModel
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from autoslug import AutoSlugField
+from tinymce.models import HTMLField
 
 
 class UserFullName(User):
@@ -17,7 +18,7 @@ class Post(TimeStampedModel):
     """Post"""
 
     title = models.CharField(max_length=128)
-    content = models.TextField()
+    content = HTMLField()
     author = models.ForeignKey(UserFullName, related_name="author")
     slug = AutoSlugField(populate_from='title')
     comments_allowed = models.BooleanField(default=True)
@@ -61,6 +62,17 @@ class Comment(TimeStampedModel):
     class Meta:
         ordering = ('-created',)
         verbose_name_plural = "comments"
+
+
+class Page(models.Model):
+    """Pages"""
+
+    name = models.CharField(max_length=128, unique=True)
+    slug = AutoSlugField(populate_from='name')
+    content = HTMLField()
+
+    def __unicode__(self):
+        return self.fullname
 
 
 class Category(models.Model):
