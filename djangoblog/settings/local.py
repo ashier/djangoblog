@@ -43,5 +43,5 @@ INSTALLED_APPS = (
     'tastypie',
     'model_utils',
     'blog',
-    'api_v10',
+    'api_v1',
 )
