@@ -66,17 +66,17 @@
     -webkit-text-fill-color: transparent;
 }
 
-.transition(@range: all, @time: 1s, @ease: ease-in-out){
-    -moz-transition: @range @time @ease;
+.transition(@range: all, @time: 1s, @ease: ease-in-out) {
     -webkit-transition: @range @time @ease;
+    -moz-transition: @range @time @ease;
     -o-transition: @range @time @ease;
     transition: @range @time @ease;
 }
 
 .transition_duration(@duration: 0.2s) {
-  -moz-transition-duration: @duration;
-  -webkit-transition-duration: @duration;
-  transition-duration: @duration;
+    -webkit-transition-duration: @duration;
+    -moz-transition-duration: @duration;
+    transition-duration: @duration;
 }
 
 /*Transformations*/

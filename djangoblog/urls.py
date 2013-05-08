@@ -21,6 +21,6 @@ urlpatterns = patterns(
     url(r'^admin/', include(admin.site.urls)),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^assets/(?P<path>.*)$', 'django.views.static.serve', {'document_root': 'static/'}),
-    # url(r'^blog/', include('blog.urls')),
+    url(r'^notes/', include('blog.urls')),
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 )

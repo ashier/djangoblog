@@ -1,16 +1,23 @@
-{%extends  "common/layout.html"%}
+{%extends  "common/base.html"%}
 
 {%block header%}
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container"></div>
+<div class="container">
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="page-header-social">
+
+            </div>
+        </div>
     </div>
-</div>
-<div class="logo-holder">
-    <div class="logo pull-left">
-        <img src="../assets/img/logo-ashier.png" ></div>
-    <div class="menu pull-right">
-        <nav class="menu-nav">
+    <div class="brand-container">
+        <div class="brand">
+            <img src="../assets/img/logo-ashier.png" >
+            <h1>
+                <a href="#">Ashier de Leon</a>
+                <br /><span><a href="#">Frontend Developer</a></span>
+            </h1>
+        </div>
+        <nav class="pull-right">
             <ul>
                 <li class="active">
                     <a href="#">Work</a>
@@ -30,326 +37,72 @@
 </div>
 {%endblock%}
 {%block content%}
-<div class="row-fluid">
-    <article>
-        <header class="article-img">
-            <img src="../assets/img/banner1.png" ></header>
-        <div class="article-content">
-            <h2>Session at MAX: HTML5 for ActionScript 3.0 developers</h2>
+<section class="notes">
+    <article class="note">
+        <header class="note-header">
+            <img src="../assets/img/banner2.png" >
+            <h1>Session at MAX: HTML5 for ActionScript 3.0 developers</h1>
+        </header>
+        <div class="note-content">
+            <div class="note-ribbon">
+                <a href="#">HTML5</a>
+                <a href="#">Django</a>
+                <a href="#">Python</a>
+            </div>
             <p>
                 The
                 <a href="#">MAX</a>
                 conference is approaching, happening on May 4-8th in Los Angeles and I will be giving a talk entitled
                 <a href="#">HTML5 for ActionScript 3.0 developers</a>
                 , which I am super excited about.
-                <br />
-                <br />
-                I will be covering the differences and similarities between today and tomorrow and ActionScript 3, the browser APIs and solutions you want to use to power expressive content across desktop and mobile, and the options available to profile your content and optimize performance.
-                <br />
-                <br />
-                If you have been developing with ActionScript for years and you are diving into web standards to create expressive and interactive stuff, then I hope to see you there! For those of you who cannot attend MAX, the session will also be recorded and posted here.
-                <br />
-                <br />
-                Posted on
-                <a href="#">April 10, 2013</a>
-                by
-                <a href="#">Ashier de Leon</a>
-                -
-                <a href="#">0 Comments</a>
+                <br /><br />I will be covering the differences and similarities between today and tomorrow and ActionScript 3, the browser APIs and solutions you want to use to power expressive content across desktop and mobile, and the options available to profile your content and optimize performance.
+                <br /><br />If you have been developing with ActionScript for years and you are diving into web standards to create expressive and interactive stuff, then I hope to see you there! For those of you who cannot attend MAX, the session will also be recorded and posted here.
             </p>
+            <button class="btn btn-primary">CONTINUE READING</button>
         </div>
+        <footer class="note-footer">
+            Posted on <a href="#">April 10, 2013</a> by <a href="#">Ashier de Leon</a> - <a href="#">0 Comments</a>
+        </footer>
     </article>
 
-    <article>
-        <header class="article-img">
-            <img src="../assets/img/banner2.png" >
-        </header>
-        <div class="article-content">
-            <h2>
+    <article class="note">
+        <header class="note-header no-image">
+            <h1>
                 <a href="#" rel="bookmark" title="Read 'How To Help A Real-Life Knight Achieve His Goals'">
                     <span class="catch_headline">Whiteboards, Visions And Banned Words</span>
                 </a>
-            </h2>
+            </h1>
+        </header>
+        <div class="note-content">
+            <div class="note-ribbon">
+                <a href="#">HTML5</a>
+                <a href="#">Django</a>
+                <a href="#">Python</a>
+            </div>
             <p>
-                This article is about design consultancy. It’s about wrangling that client who uses empty sentences like, “We want a snappy, simple experience,” or, “It should be on brand and should really pop.” It’s about commanding the room and setting a vision before moving on to wireframes and pixels.
+                The
+                <a href="#">MAX</a>
+                conference is approaching, happening on May 4-8th in Los Angeles and I will be giving a talk entitled
+                <a href="#">HTML5 for ActionScript 3.0 developers</a>
+                , which I am super excited about.
+                <br /><br />I will be covering the differences and similarities between today and tomorrow and ActionScript 3, the browser APIs and solutions you want to use to power expressive content across desktop and mobile, and the options available to profile your content and optimize performance.
+                <br /><br />If you have been developing with ActionScript for years and you are diving into web standards to create expressive and interactive stuff, then I hope to see you there! For those of you who cannot attend MAX, the session will also be recorded and posted here.
             </p>
-            <p>
-                While I’ll talk in terms of consultation, these ideas can be applied to the design phase of any new project.
-            </p>
-            <div id="textadtarget"></div>
-            <h3>Banned Words</h3>
-            <p>I start every consultation with this list on the whiteboard:</p>
-            <ul>
-                <li>Clean</li>
-                <li>Simple</li>
-                <li>Fast</li>
-                <li>Snappy</li>
-                <li>Some</li>
-                <li>Most</li>
-                <li>Nice</li>
-            </ul>
-            <p>
-                These words are banned. If anyone in the room says any of these words, it means we’ve lost our focus or forgotten that we’re in the room to solve problems. We stop, reframe the conversation, then move on.
-            </p>
-            <p>
-                <br> <em>Any whiteboard is a weapon if you hold it right.</em>
-            </p>
-            <p>
-                Here are three steps I take to ensure that the words above are never uttered in the first place.
-            </p>
-            <h3>1. Set A Vision</h3>
-            <p>
-                The design process can get derailed right at the start by focusing on questions like, “What’s the best thing about our product?” or, “What differentiates our service from the competition?”
-            </p>
-            <h4>Why This Is a Bad Idea</h4>
-            <ul>
-                <li>
-                    Real users have families, jobs and tax bills and are quite possibly
-                    <a href="http://www.youtube.com/watch?v=r2CbbBLVaPk">drunk</a> <sup class="print_only">1</sup>
-                    when they first experience your brand. Put bluntly, people don’t care about your product — yet.
-                </li>
-                <li>Real people experience your idea on their terms, not yours.</li>
-                <li>
-                    Dumb mass marketing doesn’t work anymore; we’ve raised a generation of marketing-proofed humans. (Thanks, Coke.)
-                </li>
-            </ul>
-            <p>
-                Instead, let your audience define the project by explaining their needs to a friend, remembering that your brand is not what you say it is. Your brand is what <strong>people tell their friends</strong>
-                it is.
-            </p>
-            <blockquote>
-                <p>“As a ____, I need to ____, so that I can ____.”</p>
-            </blockquote>
-            <p>
-                Let’s assume we’re selling ACME Dragon-Slayer Swords. Our audience might say:
-            </p>
-            <blockquote>
-                <p>
-                    “As a white knight, I need to slay the dragon, so that I can save the princess.”
-                </p>
-            </blockquote>
-            <p>
-                <br> <em>Your brand is not what you say it is, but what your audience says it is.</em>
-            </p>
-            <p>
-                This is useful because it describes our audience’s impetus and why it’s important to them. However, our user is not yet textured, nor specific enough. We can do better.
-            </p>
-            <h3>2. Narrow It Down</h3>
-            <p>Let’s start with some experiential texture:</p>
-            <blockquote>
-                <p>
-                    “As an inexperienced knight, I need to slay my first dragon so that I can prove my worth to the father of the princess.”
-                </p>
-            </blockquote>
-            <p>
-                Better. We’ve textured our knight, with corresponding depth to his reasoning. Experiment with different textures — such as technical nouns, age, income and geography.
-            </p>
-            <p>
-                It’s easy to get lost in our idea and forget how it applies to the larger stage, so let’s delve further in time, before and after our idea:
-            </p>
-            <blockquote>
-                <p>
-                    “As an inexperienced knight on my first quest, I need to impress the king, so that I might marry his daughter and live happily ever after.”
-                </p>
-            </blockquote>
-            <p>
-                In doing this, we’re taking our user from his real-world impetus, through our brand and back into real life again. We’ve realized that the dragon-slaying itself wouldn’t actually help a real knight achieve their goals. Might we consider selling ACME Dragon-Slayer Swords by how impressive they are to kings?
-            </p>
-            <p> <strong>Describe the brand from multiple viewpoints.</strong>
-                For example, our princess may find dragon-slaying presumptuous. If we discover that she’s a more interesting audience, then put her center stage instead.
-            </p>
-            <p>
-                <br>
-                <em>Dragon-slaying princesses are DIY champions.</em>
-            </p>
-            <h3>3. Stick To Your Vision</h3>
-            <p>
-                Once a scope is defined, remaining within its constraints is important. Thinking back to our banned words, let’s look at the scope-destroyers:
-            </p>
-            <ul>
-                <li>Some</li>
-                <li>Most</li>
-                <li>Nice</li>
-            </ul>
-            <p>
-                The sentence, “It would be nice if some users could X” is almost as dangerous as, “Most of the time our users will Y.” This kind of thinking frays the edges of a good idea until it’s unrecognizable.
-            </p>
-            <p>
-                That way madness lies. Remove all but
-                <em>undebatable</em>
-                assumptions:
-            </p>
-            <ul>
-                <li>Narrow down “some users” until you can say “every user.”</li>
-                <li>
-                    If the client says “most times,” remove fuzzy options until they can say “all of the time.”
-                </li>
-                <li>
-                    Don’t waste time on “it would be nice” issues if you can fix a “we absolutely must” problem.
-                </li>
-            </ul>
-            <p>For example, earlier we defined our knight as inexperienced.</p>
-            <p>
-                If anyone starts talking about experienced knights, we’d ask them to
-                <strong>rephrase in terms of our defined audience</strong>
-                . If we get sidetracked by knights who don’t want to impress kings, we’d jot that down on a “nice to have” list and forget about it entirely.
-            </p>
-            <h3>In The Real World</h3>
-            <p>
-                Here are some practical examples from real-world projects that I’ve led:
-            </p>
-            <ul>
-                <li>
-                    <a href="http://clarity.io">Clarity.io</a> <sup class="print_only">2</sup>
-                    <br>
-                    “As a young adult, I want to donate to charity with my Facebook account so that I can share my charitable identity with friends.”
-                </li>
-                <li>
-                    <a href="http://fitzroygsd.com">The Fitzroy Academy of Getting Shit Done</a>
-                    <sup class="print_only">3</sup>
-                    <br>
-                    “I’ve lost faith in university education. I want an intense, condensed way to skill up and be industry-ready so that I can get out into the workforce soon.”
-                </li>
-                <li>
-                    <a href="http://oursay.org">OurSay</a>
-                    <sup class="print_only">4</sup>
-                    <br>
-                    “Australian citizens need direct access to people in power so that they can have an impact on their political system.”
-                </li>
-                <li>
-                    <a href="http://promobay.org">The Promo Bay</a>
-                    <sup class="print_only">5</sup>
-                    <br>
-                    “The Pirate Bay needs a way to centralize and sift through artists so that it can decide who to promote on the home page of The Pirate Bay.”
-                </li>
-            </ul>
-            <p>
-                While we’re thinking “real world,” let’s look at the consultation session itself.
-            </p>
-            <h4>Sleight of Hand</h4>
-            <p>
-                When performing, stage magicians use props and well-practiced patter to better engage the audience. As a consultant, the magic lies in your command of design, while some nuanced expression can transform a banal experience into an engaging one.
-            </p>
-            <p>
-                <br>
-                <em>One tablet makes you bigger, one tablet makes you smaller.</em>
-            </p>
-            <h4>Practically Speaking</h4>
-            <ul>
-                <li>
-                    Keep the vision written at the top of the whiteboard at all times. If anyone gets sidetracked, point at it meaningfully until they quiet down.
-                </li>
-                <li>
-                    If you feel you personally don’t have the authority to command the room, explain the consultative process up front. People sometimes prefer to trust a well-explained process, especially if they’re older or smarter than you.
-                </li>
-                <li>
-                    If a client uses terms like “drop-down” or “radio button,” ask them to rephrase without using those words. It’s also a good excuse to assert that the consultation is not about pixels and wireframes.
-                </li>
-                <li>
-                    Build a personal library of
-                    <strong>real-world metaphors that explain UX situations</strong>
-                    . For example, a website that logs you back in without asking is a lot like an automatic door. An HTML prototype is like a car without the engine. Physical examples ground people in reality.
-                </li>
-                <li>
-                    Your whiteboard marker is a conductor’s baton. This
-                    <a href="http://en.wikipedia.org/wiki/Amygdala#Emotional_learning">lizard-brain reaction</a>
-                    <sup class="print_only">6</sup>
-                    harkens back to teachers in grade school. Note on the board something that a person says that you agree with, and people will suddenly speak on your terms just so you write down what they say.
-                </li>
-                <li>
-                    Once a vision is established, ask every person in the room whether they agree with it. Put a big tick next to it for each person, in turn. It’s now set in stone, and you can use it as the “bad guy” to settle disputes later.
-                </li>
-                <li>
-                    Pacing is one of the most important parts of consultation. Set time limits, and don’t be afraid to say, “OK, back to the process.” Consider having a clock in the room.
-                </li>
-                <li>
-                    Use a banned word, then catch yourself and apologize profusely. It proves you are beholden to the same rules as the client.
-                </li>
-            </ul>
-            <p>
-                <br>
-                <em>Always remember to keep your audience’s impetus in mind.</em>
-            </p>
-            <h3>Further Reading And Experience</h3>
-            <p>I’ve straddled the shoulders of two giants in writing this.</p>
-            <h4>Reading</h4>
-            <ul>
-                <li>
-                    The “As a ____, I need to ____, so that I can ____” technique is a simplification of a
-                    <a href="http://en.wikipedia.org/wiki/Behavior-driven_development#Behavioral_specifications">behaviour-driven development</a>
-                    <sup class="print_only">7</sup>
-                    tool. See
-                    <a href="http://www.slideshare.net/brynary/story-driven-development">Bryan Helmkamp’s practical example</a>
-                    <sup class="print_only">8</sup>
-                    over on SlideShare.
-                </li>
-                <li>
-                    I highly recommend watching the “
-                    <a href="http://scottberkun.com/2011/feedback-without-frustration-video/">Feedback Without Frustration</a>
-                    <sup class="print_only">9</sup>
-                    ” video and accompanying article, “
-                    <a href="http://scottberkun.com/essays/23-how-to-run-a-design-critique/">How to Run a Design Critique</a>
-                    <sup class="print_only">10</sup>
-                    ,” by Scott Berkun.
-                </li>
-                <li>
-                    It may be old school, but a solid understanding of “
-                    <a href="http://hcibib.org/tcuid/chap-4.html#4-1">Cognitive Walkthroughs</a>
-                    <sup class="print_only">11</sup>
-                    ” in
-                    <em>Task-Centered User Interface Design</em>
-                    is a good reference point for sticking to a vision.
-                </li>
-                <li>
-                    The “your brand is what your users tell their friends” idea comes from
-                    <a href="http://en.wikipedia.org/wiki/Brand_tribalism">brand tribalism</a>
-                    <sup class="print_only">12</sup>
-                    , another ’90s idea recently popularized by Seth Godin. See
-                    <a href="http://www.ted.com/talks/seth_godin_on_the_tribes_we_lead.html">his TED talk</a>
-                    <sup class="print_only">13</sup>
-                    on the subject.
-                </li>
-            </ul>
-            <h4>Experience</h4>
-            <p>
-                You needn’t score a top-dollar client to learn how to deliver solid consultation services. We use these same techniques at work for all of our internal projects.
-            </p>
-            <p>
-                Try starting your next design sans-Photoshop. Instead, run a two-hour consultation with a coworker. Try again later with a really annoying person who hates your designs. Mixed experiences will help you find your own method in the madness.
-            </p>
-            <p>Charm is a learned skill.</p>
-            <h3>In Conclusion, re. Applicability</h3>
-            <p>
-                This style of consultation isn’t so great for fixing large broken systems. It’s better for new projects, with a small audience. It also works for small, distinct portions of a larger problem.
-            </p>
-            <p>
-                Extending the vision should happen after launch and testing, once you’ve won everyone’s heart.
-            </p>
-            <p>Or:</p>
-            <blockquote>
-                <p>
-                    “As the design lead of a new project, I need some consultative tricks to keep my clients in line and to craft a concise vision.”
-                </p>
-            </blockquote>
-            <p>
-                <em>(al) (ea)</em>
-            </p>
-
+            <button class="btn btn-primary">CONTINUE READING</button>
         </div>
+        <footer class="note-footer">
+            Posted on <a href="#">April 10, 2013</a> by <a href="#">Ashier de Leon</a> - <a href="#">0 Comments</a>
+        </footer>
     </article>
-</div>
+</section>
 {%endblock%}
 {%block footer%}
-<footer>
-    <div class="footer">
-        <div class="container">
-            <div class="pull-left">
-                <p class="copyright">
-                    COPYRIGHT &copy; 2013 - Ashier de Leon
-                    <br ></p>
-            </div>
-        </div>
+<div class="container">
+    <div class="pull-left">
+        <p class="copyright">
+            Copyright &copy; 2013 - Ashier de Leon
+            <br ></p>
     </div>
-</footer>
+</div>
 {%endblock%}
 {%block end_script%}{%endblock%}

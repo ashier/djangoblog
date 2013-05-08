@@ -6,14 +6,18 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap-responsive.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/application.css">
     {% block head %}{% endblock %}
-    <title>{% block title %}{% endblock %}</title>
+    <title>{%block title%}Ashier de Leon | Frontend Developer{%endblock%}</title>
 </head>
 <body>
-    <div class="container">
+    <header class="page-header">
         {%block header%}{%endblock%}
+    </header>
+    <div class="container">
         {%block content%}{%endblock%}
     </div>
-    {%block footer%}{%endblock%}
+    <footer class="page-footer">
+        {%block footer%}{%endblock%}
+    </footer>
     {%block end_script%}{%endblock%}
 </body>
 </html>
