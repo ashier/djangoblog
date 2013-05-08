@@ -1,108 +1,11 @@
-{%extends  "common/base.html"%}
+{%extends  "common/layout.html"%}
 
-{%block header%}
-<div class="container">
-    <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="page-header-social">
 
-            </div>
-        </div>
-    </div>
-    <div class="brand-container">
-        <div class="brand">
-            <img src="../assets/img/logo-ashier.png" >
-            <h1>
-                <a href="#">Ashier de Leon</a>
-                <br /><span><a href="#">Frontend Developer</a></span>
-            </h1>
-        </div>
-        <nav class="pull-right">
-            <ul>
-                <li class="active">
-                    <a href="#">Work</a>
-                </li>
-                <li>
-                    <a href="#">Notes</a>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</div>
-{%endblock%}
 {%block content%}
-<section class="notes">
-    <article class="note">
-        <header class="note-header">
-            <img src="../assets/img/banner2.png" >
-            <h1>Session at MAX: HTML5 for ActionScript 3.0 developers</h1>
-        </header>
-        <div class="note-content">
-            <div class="note-ribbon">
-                <a href="#">HTML5</a>
-                <a href="#">Django</a>
-                <a href="#">Python</a>
-            </div>
-            <p>
-                The
-                <a href="#">MAX</a>
-                conference is approaching, happening on May 4-8th in Los Angeles and I will be giving a talk entitled
-                <a href="#">HTML5 for ActionScript 3.0 developers</a>
-                , which I am super excited about.
-                <br /><br />I will be covering the differences and similarities between today and tomorrow and ActionScript 3, the browser APIs and solutions you want to use to power expressive content across desktop and mobile, and the options available to profile your content and optimize performance.
-                <br /><br />If you have been developing with ActionScript for years and you are diving into web standards to create expressive and interactive stuff, then I hope to see you there! For those of you who cannot attend MAX, the session will also be recorded and posted here.
-            </p>
-            <button class="btn btn-primary">CONTINUE READING</button>
-        </div>
-        <footer class="note-footer">
-            Posted on <a href="#">April 10, 2013</a> by <a href="#">Ashier de Leon</a> - <a href="#">0 Comments</a>
-        </footer>
-    </article>
+<section class="works">
 
-    <article class="note">
-        <header class="note-header no-image">
-            <h1>
-                <a href="#" rel="bookmark" title="Read 'How To Help A Real-Life Knight Achieve His Goals'">
-                    <span class="catch_headline">Whiteboards, Visions And Banned Words</span>
-                </a>
-            </h1>
-        </header>
-        <div class="note-content">
-            <div class="note-ribbon">
-                <a href="#">HTML5</a>
-                <a href="#">Django</a>
-                <a href="#">Python</a>
-            </div>
-            <p>
-                The
-                <a href="#">MAX</a>
-                conference is approaching, happening on May 4-8th in Los Angeles and I will be giving a talk entitled
-                <a href="#">HTML5 for ActionScript 3.0 developers</a>
-                , which I am super excited about.
-                <br /><br />I will be covering the differences and similarities between today and tomorrow and ActionScript 3, the browser APIs and solutions you want to use to power expressive content across desktop and mobile, and the options available to profile your content and optimize performance.
-                <br /><br />If you have been developing with ActionScript for years and you are diving into web standards to create expressive and interactive stuff, then I hope to see you there! For those of you who cannot attend MAX, the session will also be recorded and posted here.
-            </p>
-            <button class="btn btn-primary">CONTINUE READING</button>
-        </div>
-        <footer class="note-footer">
-            Posted on <a href="#">April 10, 2013</a> by <a href="#">Ashier de Leon</a> - <a href="#">0 Comments</a>
-        </footer>
-    </article>
+
 </section>
 {%endblock%}
-{%block footer%}
-<div class="container">
-    <div class="pull-left">
-        <p class="copyright">
-            Copyright &copy; 2013 - Ashier de Leon
-            <br ></p>
-    </div>
-</div>
-{%endblock%}
-{%block end_script%}{%endblock%}
+
+{%block page_script%}{%endblock%}

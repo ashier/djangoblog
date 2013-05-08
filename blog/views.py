@@ -1,8 +1,13 @@
 from django.http import HttpResponse
+from django.views.generic import TemplateView
 
 
-def index(request):
-    return HttpResponse("Hello Blog")
+class IndexView(TemplateView):
+    template_name = "blog/main.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        return context
 
 
 def post_detail_by_index(request, id):
