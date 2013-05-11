@@ -1,43 +1,31 @@
-{%extends  "common/base.html"%}
-
-{%block header%}
+{% extends  "common/base.html" %}
+{% block header %}
 <div class="container">
-    <div class="brand-container">
-        <div class="brand">
-            <img src="../assets/img/logo-ashier.png" >
-            <h1>
-                <a href="#">Ashier de Leon</a>
-                <br /><span><a href="#">Frontend Developer</a></span>
-            </h1>
-        </div>
-        <nav class="pull-right">
-            <ul>
-                <li class="active">
-                    <a href="/">Work</a>
-                </li>
-                <li>
-                    <a href="/notes">Notes</a>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
-            </ul>
-        </nav>
+    <div class="brand">
+        <img src="{{STATIC_URL}}img/logo-ashier-light.png" >
+        <h1>
+            Ashier de Leon
+            <br /><span>Frontend Developer</span>
+        </h1>
     </div>
+    <nav class="pull-right">
+        <ul>
+            <li class="active">
+                <a href="/">Work</a>
+            </li>
+            <li>
+                <a href="/notes">Notes</a>
+            </li>
+            <li>
+                <a href="#">About</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+    </nav>
 </div>
-{%endblock%}
+{% endblock header %}
 
-{%block content%}{%endblock%}
-
-{%block footer%}
-<div class="container">
-    <p class="copyright">
-        Copyright &copy; 2013 - <a href="#">Ashier de Leon</a>
-    </p>
-</div>
-{%endblock%}
-
-{%block page_script%}{%endblock%}
+{% block content %}{% endblock content %}
+{% block page_script %}{% endblock page_script %}

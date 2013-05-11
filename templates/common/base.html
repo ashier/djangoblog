@@ -1,29 +1,26 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html>
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="/assets/css/font.css">
-    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap-responsive.css">
-    <link rel="stylesheet" type="text/css" href="/assets/css/application.css">
-    {% block head %}{% endblock %}
-    <title>{%block title%}Ashier de Leon | Frontend Developer{%endblock%}</title>
+    <title>{% block title %}Ashier de Leon | Frontend Developer{% endblock title %}</title>
+    <!--[if IE]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/font.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap-responsive.css">
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/djangoblog.css">
+    {% block head %}{% endblock head %}
 </head>
 <body>
-    <div class="wrap">
-        <header class="page-header">
-            {%block header%}{%endblock%}
-        </header>
-        <div class="container">
-            {%block content%}{%endblock%}
-            <div class="push"></div>
-        </div>
+    <header>
+        {% block header %}{% endblock header %}
+    </header>
+    <div class="container">
+        {% block content %}{% endblock content %}
     </div>
-    <footer class="page-footer">
-        {%block footer%}{%endblock%}
-    </footer>
-    <span id="forkongithub"><a href="https://github.com/ashier/djangoblog">Fork me on GitHub</a></span>
-    {%block base_script%}{%endblock%}
-    {%block page_script%}{%endblock%}
+    {% block footer %}{% endblock footer %}
+    {% block base_script %}{% endblock base_script %}
+    {% block page_script %}{% endblock page_script %}
 </body>
 </html>

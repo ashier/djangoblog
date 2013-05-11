@@ -16,7 +16,3 @@ def post_detail_by_index(request, id):
 
 def post_detail(request, slug):
     return HttpResponse("Hello Post by slug")
-
-
-def category_detail(request, slug):
-    return HttpResponse("Hello category by slug")

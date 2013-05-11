@@ -1,12 +1,20 @@
 from django.db import models
-from model_utils.models import TimeStampedModel
-from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
-from autoslug import AutoSlugField
 from tinymce.models import HTMLField
+from django.template.defaultfilters import slugify
+
+
+class TimeStampedModel(models.Model):
+
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
 
 
 class UserFullName(User):
+
     class Meta:
         proxy = True
 
@@ -15,72 +23,42 @@ class UserFullName(User):
 
 
 class Post(TimeStampedModel):
+
     """Post"""
 
     title = models.CharField(max_length=128)
     content = HTMLField()
     author = models.ForeignKey(UserFullName, related_name="author")
-    slug = AutoSlugField(populate_from='title')
-    comments_allowed = models.BooleanField(default=True)
+    slug = models.SlugField()
+    header_image = models.ImageField(upload_to='post/%Y/%m/%d/', null=True, blank=True)
+    categories = models.ManyToManyField("Category", related_name='categories', null=True, blank=True)
 
     def __unicode__(self):
         return self.title
 
+    @property
+    def filename(self):
+        return self.file.name.rsplit('/', 1)[-1]
+
     class Meta:
         ordering = ('-created',)
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
-        super(Post, self).save(*args, **kwargs)
 
     @models.permalink
     def get_absolute_url(self):
         return ('post_detail', None, {'slug': self.slug})
 
-
-class CommentManager(models.Manager):
-    def get_query_set(self):
-        return super(CommentManager, self).get_query_set().filter(is_spam=False)
-
-
-class Comment(TimeStampedModel):
-    """Post Comments"""
-
-    fullname = models.CharField(max_length=128)
-    email = models.CharField(max_length=128, blank=True)
-    message = models.TextField(blank=True)
-    website = models.URLField(blank=True, null=True)
-    post = models.ForeignKey(Post, related_name="comments")
-    is_spam = models.BooleanField(default=False)
-
-    objects = CommentManager()
-
-    def __unicode__(self):
-        return self.fullname
-
-    class Meta:
-        ordering = ('-created',)
-        verbose_name_plural = "comments"
-
-
-class Page(models.Model):
-    """Pages"""
-
-    name = models.CharField(max_length=128, unique=True)
-    slug = AutoSlugField(populate_from='name')
-    content = HTMLField()
-
-    def __unicode__(self):
-        return self.fullname
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)[:50]
+        super(Post, self).save(*args, **kwargs)
 
 
 class Category(models.Model):
+
     """Post Category"""
 
     name = models.CharField(max_length=128, unique=True)
-    slug = AutoSlugField(populate_from='name')
-    post = models.ManyToManyField(Post, blank=True, null=True)
+    slug = models.SlugField()
 
     def __unicode__(self):
         return self.name
@@ -91,5 +69,36 @@ class Category(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            self.slug = slugify(self.name)[:50]
         super(Category, self).save(*args, **kwargs)
+
+
+class Media(models.Model):
+
+    """Public Media"""
+
+    name = models.CharField(max_length=128, unique=True)
+    image = models.ImageField(upload_to='public/%Y/%m/%d/', null=True, blank=True)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "medium"
+
+
+class Page(models.Model):
+
+    """Pages"""
+
+    name = models.CharField(max_length=128, unique=True)
+    slug = models.SlugField()
+    content = HTMLField()
+
+    def __unicode__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)[:50]
+        super(Page, self).save(*args, **kwargs)

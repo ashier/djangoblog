@@ -8,69 +8,26 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Post'
-        db.create_table(u'blog_post', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('created', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('modified', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=128)),
-            ('content', self.gf('tinymce.models.HTMLField')()),
-            ('author', self.gf('django.db.models.fields.related.ForeignKey')(related_name='author', to=orm['auth.User'])),
-            ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50)),
-            ('header_image', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
-        ))
-        db.send_create_signal(u'blog', ['Post'])
+        # Deleting field 'Category.post'
+        db.delete_column(u'blog_category', 'post_id')
 
-        # Adding M2M table for field categories on 'Post'
-        db.create_table(u'blog_post_categories', (
+        # Adding M2M table for field post on 'Category'
+        db.create_table(u'blog_category_post', (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('post', models.ForeignKey(orm[u'blog.post'], null=False)),
-            ('category', models.ForeignKey(orm[u'blog.category'], null=False))
+            ('category', models.ForeignKey(orm[u'blog.category'], null=False)),
+            ('post', models.ForeignKey(orm[u'blog.post'], null=False))
         ))
-        db.create_unique(u'blog_post_categories', ['post_id', 'category_id'])
-
-        # Adding model 'Category'
-        db.create_table(u'blog_category', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=128)),
-            ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50)),
-            ('post', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['blog.Post'], null=True, blank=True)),
-        ))
-        db.send_create_signal(u'blog', ['Category'])
-
-        # Adding model 'Media'
-        db.create_table(u'blog_media', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=128)),
-            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
-        ))
-        db.send_create_signal(u'blog', ['Media'])
-
-        # Adding model 'Page'
-        db.create_table(u'blog_page', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=128)),
-            ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50)),
-            ('content', self.gf('tinymce.models.HTMLField')()),
-        ))
-        db.send_create_signal(u'blog', ['Page'])
+        db.create_unique(u'blog_category_post', ['category_id', 'post_id'])
 
 
     def backwards(self, orm):
-        # Deleting model 'Post'
-        db.delete_table(u'blog_post')
+        # Adding field 'Category.post'
+        db.add_column(u'blog_category', 'post',
+                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['blog.Post'], null=True, blank=True),
+                      keep_default=False)
 
-        # Removing M2M table for field categories on 'Post'
-        db.delete_table('blog_post_categories')
-
-        # Deleting model 'Category'
-        db.delete_table(u'blog_category')
-
-        # Deleting model 'Media'
-        db.delete_table(u'blog_media')
-
-        # Deleting model 'Page'
-        db.delete_table(u'blog_page')
+        # Removing M2M table for field post on 'Category'
+        db.delete_table('blog_category_post')
 
 
     models = {
@@ -107,7 +64,7 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "('name',)", 'object_name': 'Category'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '128'}),
-            'post': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['blog.Post']", 'null': 'True', 'blank': 'True'}),
+            'post': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'related_name': "'posts'", 'null': 'True', 'symmetrical': 'False', 'to': u"orm['blog.Post']"}),
             'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50'})
         },
         u'blog.media': {

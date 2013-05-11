@@ -1,0 +1,66 @@
+// VARIABLES
+@import "variables.less";
+@import "mixin.less";
+
+
+header {
+
+    border-bottom: none;
+
+    .brand {
+
+        font-family: 'DroidSansRegular';
+
+        img {
+            float: left;
+        }
+
+        a {
+            &:hover {
+                color: @baseGreen;
+            }
+            color: @baseGray;
+        }
+
+        h1 {
+
+            float: left;
+            margin: 15px;
+            font-size: 1.8em;
+            font-weight: normal;
+            line-height: .8;
+
+            span {
+                font-size: .6em;
+                font-weight: normal;
+            }
+        }
+    }
+
+    nav {
+
+        font-size: 1.2em;
+
+        ul {
+            margin: 25px 0;
+            li {
+                display: inline;
+                margin: 0 20px;
+                a {
+                    &:hover {
+                        color: @baseGreen;
+                    }
+                    color: @baseGray;
+                }
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+            .active {
+                a {
+                    color: @baseGreen;
+                }
+            }
+        }
+    }
+}

@@ -1,22 +1,17 @@
 
-/*
-****************************************************
-* Common Mixins
-****************************************************
-*/
 
-.border_radius(@radius: 10px){
+.border_radius(@radius: 10px) {
     .border-radius(@radius, @radius);
 }
 
-.border_radius(@radius_top, @radius_bottom){
+.border_radius(@radius_top, @radius_bottom) {
     .border-radius(@radius_top, @radius_top, @radius_bottom, @radius_bottom);
 }
 
-.border_radius(@radius_top_left, @radius_top_right, @radius_bottom_right, @radius_bottom_left){
+.border_radius(@radius_top_left, @radius_top_right, @radius_bottom_right, @radius_bottom_left) {
     -webkit-border-radius:@radius_top_left @radius_top_right @radius_bottom_right @radius_bottom_left;
-    -moz-border-radius:@radius_top_left @radius_top_right @radius_bottom_right @radius_bottom_left;
-    border-radius:@radius_top_left @radius_top_right @radius_bottom_right @radius_bottom_left;
+       -moz-border-radius:@radius_top_left @radius_top_right @radius_bottom_right @radius_bottom_left;
+            border-radius:@radius_top_left @radius_top_right @radius_bottom_right @radius_bottom_left;
 }
 
 .text_gradient(@first:#5b6370, @second:#373f4a ) {
@@ -31,32 +26,32 @@
     -webkit-text-fill-color: transparent;
 }
 
-/*Shadows*/
-.box_shadow(@shadow_x:3px, @shadow_y:3px, @shadow_rad:3px, @shadow_color:#888){
-    box-shadow: @shadow_x @shadow_y @shadow_rad @shadow_color;
+.box_shadow(@shadow_x:3px, @shadow_y:3px, @shadow_rad:3px, @shadow_color:#888) {
     -webkit-box-shadow:@shadow_x @shadow_y @shadow_rad @shadow_color;
-    -moz-box-shadow:@shadow_x @shadow_y @shadow_rad @shadow_color;
+       -moz-box-shadow:@shadow_x @shadow_y @shadow_rad @shadow_color;
+            box-shadow: @shadow_x @shadow_y @shadow_rad @shadow_color;
 }
 
-.box_shadow_inset(@shadow_x:3px, @shadow_y:3px, @shadow_rad:3px, @shadow_color:#888){
-    box-shadow: @shadow_x @shadow_y @shadow_rad @shadow_color inset;
+.box_shadow_inset(@shadow_x:3px, @shadow_y:3px, @shadow_rad:3px, @shadow_color:#888) {
     -webkit-box-shadow:@shadow_x @shadow_y @shadow_rad @shadow_color inset;
-    -moz-box-shadow:@shadow_x @shadow_y @shadow_rad @shadow_color inset;
+       -moz-box-shadow:@shadow_x @shadow_y @shadow_rad @shadow_color inset;
+            box-shadow: @shadow_x @shadow_y @shadow_rad @shadow_color inset;
 }
 
-.text_shadow(@shadow_color:#fff){
+.text_shadow(@shadow_color:#fff) {
     text-shadow:0 1px 0 @shadow_color;
 }
 
-.opacity(@op:100){
+.opacity(@op:100) {
     filter:alpha(opacity=@op);
-    -moz-opacity:@op/100;
+
+      -moz-opacity:@op/100;
     -khtml-opacity:@op/100;
-    opacity:@op/100;
+           opacity:@op/100;
 }
 
-.background_gradient(@from:#000, @to:#EEE){
-    background: @from;
+.background_gradient(@from:#000, @to:#EEE) {
+
     background-image: -webkit-gradient(linear, left top, left bottom, from(@from), to(@to));
     background-image: -moz-linear-gradient(top, @from, @to);
     filter: formatstring("progid:DXImageTransform.Microsoft.gradient(startColorstr='{0}', endColorstr='{1}')", @from, @to); /* IE6,IE7 */
@@ -68,51 +63,51 @@
 
 .transition(@range: all, @time: 1s, @ease: ease-in-out) {
     -webkit-transition: @range @time @ease;
-    -moz-transition: @range @time @ease;
-    -o-transition: @range @time @ease;
-    transition: @range @time @ease;
+       -moz-transition: @range @time @ease;
+         -o-transition: @range @time @ease;
+            transition: @range @time @ease;
 }
 
 .transition_duration(@duration: 0.2s) {
     -webkit-transition-duration: @duration;
-    -moz-transition-duration: @duration;
-    transition-duration: @duration;
+       -moz-transition-duration: @duration;
+            transition-duration: @duration;
 }
 
-/*Transformations*/
-.skew(@angle_x:35, @angle_y:0){
+.skew(@angle_x:35, @angle_y:0) {
     -webkit-transform: skew(formatstring("{0}deg", @angle_x), formatstring("{0}deg", @angle_y));
-    -moz-transform: skew(formatstring("{0}deg", @angle_x), formatstring("{0}deg", @angle_y));
-    -o-transform: skew(formatstring("{0}deg", @angle_x), formatstring("{0}deg", @angle_y));
-    -ms-transform: skew(formatstring("{0}deg", @angle_x), formatstring("{0}deg", @angle_y));
-    transform: skew(formatstring("{0}deg", @angle_x), formatstring("{0}deg", @angle_y));
+       -moz-transform: skew(formatstring("{0}deg", @angle_x), formatstring("{0}deg", @angle_y));
+         -o-transform: skew(formatstring("{0}deg", @angle_x), formatstring("{0}deg", @angle_y));
+        -ms-transform: skew(formatstring("{0}deg", @angle_x), formatstring("{0}deg", @angle_y));
+            transform: skew(formatstring("{0}deg", @angle_x), formatstring("{0}deg", @angle_y));
 }
 
-.scale(@scale_x: 1){
+.scale(@scale_x: 1) {
     -webkit-transform: scale(@scale_x);
-    -moz-transform: scale(@scale_x);
-    -o-transform: scale(@scale_x);
-    -ms-transform: scale(@scale_x);
-    transform: scale(@scale_x);
+       -moz-transform: scale(@scale_x);
+         -o-transform: scale(@scale_x);
+        -ms-transform: scale(@scale_x);
+            transform: scale(@scale_x);
 }
 
-.rotate(@deg:35){
+.rotate(@deg:35) {
     -webkit-transform: rotate(formatstring("{0}deg", @deg));
-    -moz-transform: rotate(formatstring("{0}deg", @deg));
-    -o-transform: rotate(formatstring("{0}deg", @deg));
-    -ms-transform: rotate(formatstring("{0}deg", @deg));
-    transform: rotate(formatstring("{0}deg", @deg));
+       -moz-transform: rotate(formatstring("{0}deg", @deg));
+         -o-transform: rotate(formatstring("{0}deg", @deg));
+        -ms-transform: rotate(formatstring("{0}deg", @deg));
+            transform: rotate(formatstring("{0}deg", @deg));
 }
 
-.translate(@move_x: 10px, @move_y: 10px){
+.translate(@move_x: 10px, @move_y: 10px) {
     -webkit-transform: translate(@move_x, @move_y);
-    -moz-transform: translate(@move_x, @move_y);
-    -o-transform: translate(@move_x, @move_y);
-    -ms-transform:translate(@move_x, @move_y);
-    transform: translate(@move_x, @move_y);
+       -moz-transform: translate(@move_x, @move_y);
+         -o-transform: translate(@move_x, @move_y);
+        -ms-transform:translate(@move_x, @move_y);
+            transform: translate(@move_x, @move_y);
 }
 
 .gradient_box( @first-color:#ff4800, @second-color:#ad2f09, @radius:0px ) {
+
     background: @first-color;
     background: -moz-linear-gradient(90deg, @first-color 0%, @second-color 100%);
     background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,@first-color), color-stop(100%,@second-color));
@@ -120,14 +115,10 @@
     background: -o-linear-gradient(90deg, @first-color 0%,@second-color 100%);
     background: -ms-linear-gradient(90deg, @first-color 0%,@second-color 100%);
     background: linear-gradient(90deg, @first-color 0%,@second-color 100%);
+
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@first-color', endColorstr='@second-color',GradientType=1 );
-    border-radius: @radius;
+
     -webkit-border-radius: @radius;
-    -moz-border-radius: @radius;
-}
-
-/*Layout*/
-
-.horizontal_center() {
-    margin: 0 auto;
+       -moz-border-radius: @radius;
+            border-radius: @radius;
 }

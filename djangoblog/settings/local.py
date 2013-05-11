@@ -12,6 +12,8 @@ TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = ['*']
 
+MEDIA_URL = '/media/'
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '00d2ppwoqyn1m4!@!cbhnf4x%ovttuwkgzv9k4vlk(xy^xev%&'
 
@@ -39,9 +41,7 @@ INSTALLED_APPS = (
     # 'disqus',
     'tinymce',
     'south',
-    'autoslug',
     'tastypie',
-    'model_utils',
     'blog',
     'api_v1',
 )

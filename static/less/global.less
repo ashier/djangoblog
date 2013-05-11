@@ -1,0 +1,36 @@
+@import "variables.less";
+@import "mixin.less";
+
+html,
+body {
+    height: 100%;
+    // background: url(../img/connect.png);
+}
+
+body {
+    padding-top: 15px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+a {
+    color: @baseGreen;
+    &:hover {
+        color: @baseGray;
+        text-decoration:none;
+    }
+    .transition(color, 0.3s, ease);
+}
+
+article {
+    position: relative;
+    padding-bottom: 30px;
+}
+
+.loader {
+    display: block;
+    width: 32px;
+    margin: 30px 0;
+    margin: 0 auto;
+}

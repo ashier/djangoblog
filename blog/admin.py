@@ -1,15 +1,15 @@
 from django.contrib import admin
-from blog.models import Post, Category, Comment, Page
+from blog.models import Post, Category, Page, Media
 
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'slug', 'created', 'modified',)
-    list_filter = ('created', 'modified',)
+    list_filter = ('categories',)
     search_fields = ('title', 'content',)
 
     fieldsets = [
         ('Post', {
-            'fields': ('title', 'content', 'comments_allowed',)
+            'fields': ('title', 'content', 'header_image', 'categories',)
         }),
         ('Author', {
             'fields': ('author',)
@@ -26,20 +26,24 @@ class PostAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug',)
 
-
-class CommentAdmin(admin.ModelAdmin):
-    list_display = ('fullname', 'email', 'website',)
     fieldsets = [
-        ('Comment Fields', {
-            'fields': ('post', 'fullname', 'email', 'website', 'message',)
+        ('Categories', {
+            'fields': ('name',)
         }),
-        ('Flags', {
-            'fields': ('is_spam',)
+    ]
+
+
+class PageAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug',)
+
+    fieldsets = [
+        ('Pages', {
+            'fields': ('name', 'content',)
         }),
     ]
 
 
 admin.site.register(Post, PostAdmin)
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(Comment, CommentAdmin)
-admin.site.register(Page)
+admin.site.register(Page, PageAdmin)
+admin.site.register(Media)

@@ -1,0 +1,76 @@
+// VARIABLES
+@import "variables.less";
+@import "mixin.less";
+
+section {
+    padding: 0;
+    margin: 0;
+}
+
+article {
+    margin-bottom: 30px;
+    background-color: #e8e8e8;
+
+    .note-header {
+        h1 {
+            padding: 10px 50px 0 50px;
+            font-family: 'DroidSansRegular';
+            font-size: 2em;
+            font-weight: normal;
+
+            a {
+                &:hover {
+                    color: @baseGreen;
+                }
+                color: @baseGray;
+            }
+        }
+    }
+
+    .no-image {
+        h1 {
+            padding-top: 80px;
+        }
+    }
+
+    .note-ribbon {
+        position: absolute;
+        top: 25px;
+        left: -10px;
+        z-index: 10;
+        display: inline-block;
+        padding: 8px 15px;
+        background-color: @baseGreen;
+
+        a {
+            margin: 5px;
+            font-family: 'DroidSansRegular';
+            font-size: 18px;
+            &:hover {
+                color: @baseGray;
+            }
+            color: #fff;
+        }
+        &:after {
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            border-top: 0 solid transparent;
+            border-right: 10px solid #5b9424;
+            border-bottom: 8px solid transparent;
+            content: '';
+        }
+    }
+
+    .note-content {
+        padding: 10px 50px 0 50px;
+
+        button {
+            margin: 20px 0;
+        }
+    }
+
+    .note-footer {
+        padding: 10px 50px 20px 50px;
+    }
+}
