@@ -14,7 +14,8 @@ class Migration(SchemaMigration):
             ('created', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('modified', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=128)),
-            ('content', self.gf('django.db.models.fields.TextField')()),
+            ('markdown_content', self.gf('django.db.models.fields.TextField')()),
+            ('html_content', self.gf('django.db.models.fields.TextField')()),
             ('author', self.gf('django.db.models.fields.related.ForeignKey')(related_name='author', to=orm['auth.User'])),
             ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50)),
             ('header_image', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
@@ -37,6 +38,14 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'blog', ['Category'])
 
+        # Adding M2M table for field posts on 'Category'
+        db.create_table(u'blog_category_posts', (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('category', models.ForeignKey(orm[u'blog.category'], null=False)),
+            ('post', models.ForeignKey(orm[u'blog.post'], null=False))
+        ))
+        db.create_unique(u'blog_category_posts', ['category_id', 'post_id'])
+
         # Adding model 'Media'
         db.create_table(u'blog_media', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -55,6 +64,9 @@ class Migration(SchemaMigration):
 
         # Deleting model 'Category'
         db.delete_table(u'blog_category')
+
+        # Removing M2M table for field posts on 'Category'
+        db.delete_table('blog_category_posts')
 
         # Deleting model 'Media'
         db.delete_table(u'blog_media')
@@ -94,6 +106,7 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "('name',)", 'object_name': 'Category'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '128'}),
+            'posts': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'related_name': "'posts'", 'null': 'True', 'symmetrical': 'False', 'to': u"orm['blog.Post']"}),
             'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50'})
         },
         u'blog.media': {
@@ -106,10 +119,11 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "('-created',)", 'object_name': 'Post'},
             'author': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'author'", 'to': u"orm['auth.User']"}),
             'categories': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'related_name': "'categories'", 'null': 'True', 'symmetrical': 'False', 'to': u"orm['blog.Category']"}),
-            'content': ('django.db.models.fields.TextField', [], {}),
             'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'header_image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
+            'html_content': ('django.db.models.fields.TextField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'markdown_content': ('django.db.models.fields.TextField', [], {}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '128'})

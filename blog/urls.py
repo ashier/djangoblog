@@ -1,10 +1,10 @@
 from django.conf.urls import patterns, url
-from blog.views import IndexView
+from blog.views import PostIndexView, PostDetailViewBySlug, PostDetailViewById
 
 
 urlpatterns = patterns(
     'blog.views',
-    url(r'^$', IndexView.as_view()),
-    url(r"^(?P<id>[\d+])$", 'post_detail_by_index'),
-    url(r"^(?P<slug>[^\.]+)$", 'post_detail'),
+    url(r'^$', PostIndexView.as_view()),
+    url(r"^(?P<id>[\d+])$", PostDetailViewById.as_view()),
+    url(r"^(?P<slug>[-\w]+)/$", PostDetailViewBySlug.as_view(), name="post_detail"),
 )

@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 
+from markdown import markdown
+
 
 class TimeStampedModel(models.Model):
 
@@ -26,7 +28,8 @@ class Post(TimeStampedModel):
     """Post"""
 
     title = models.CharField(max_length=128)
-    content = models.TextField()
+    markdown_content = models.TextField()
+    html_content = models.TextField(editable=False)
     author = models.ForeignKey(UserFullName, related_name="author")
     slug = models.SlugField()
     header_image = models.ImageField(upload_to='post/%Y/%m/%d/', null=True, blank=True)
@@ -47,6 +50,7 @@ class Post(TimeStampedModel):
         return ('post_detail', None, {'slug': self.slug})
 
     def save(self, *args, **kwargs):
+        self.html_content = markdown(self.markdown_content)
         if not self.slug:
             self.slug = slugify(self.title)[:50]
         super(Post, self).save(*args, **kwargs)
@@ -58,6 +62,7 @@ class Category(models.Model):
 
     name = models.CharField(max_length=128, unique=True)
     slug = models.SlugField()
+    posts = models.ManyToManyField("Post", related_name='posts', null=True, blank=True)
 
     def __unicode__(self):
         return self.name

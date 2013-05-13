@@ -1,6 +1,8 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 
+from markdown import markdown
+
 
 class Project(models.Model):
 
@@ -9,14 +11,20 @@ class Project(models.Model):
     title = models.CharField(max_length=128, unique=True)
     sub_title = models.TextField()
     slug = models.SlugField()
-    content = models.TextField()
+    markdown_content = models.TextField()
+    html_content = models.TextField(editable=False)
     medium = models.ManyToManyField("Media")
     categories = models.ManyToManyField("Category", related_name='categories', null=True, blank=True)
 
     def __unicode__(self):
         return self.title
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('project_detail', None, {'slug': self.slug})
+
     def save(self, *args, **kwargs):
+        self.html_content = markdown(self.markdown_content)
         if not self.slug:
             self.slug = slugify(self.title)[:50]
         super(Project, self).save(*args, **kwargs)

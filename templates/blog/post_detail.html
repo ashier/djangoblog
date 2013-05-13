@@ -1,0 +1,35 @@
+{% extends  "common/layout.html" %}
+
+{% block content %}
+
+<section>
+    <article class="note">
+        <header class="note-header">
+            <img src="{{ MEDIA_URL }}/post/2013/05/11/banner1.png" >
+            <h1>Detail View</h1>
+        </header>
+        <div class="note-content">
+            <div class="note-ribbon">
+                <a href="#">HTML5</a>
+                <a href="#">Django</a>
+                <a href="#">Python</a>
+            </div>
+            <p>
+                The
+                <a href="#">MAX</a>
+                conference is approaching, happening on May 4-8th in Los Angeles and I will be giving a talk entitled
+                <a href="#">HTML5 for ActionScript 3.0 developers</a>
+                , which I am super excited about.
+                <br /><br />I will be covering the differences and similarities between today and tomorrow and ActionScript 3, the browser APIs and solutions you want to use to power expressive content across desktop and mobile, and the options available to profile your content and optimize performance.
+                <br /><br />If you have been developing with ActionScript for years and you are diving into web standards to create expressive and interactive stuff, then I hope to see you there! For those of you who cannot attend MAX, the session will also be recorded and posted here.
+            </p>
+            <button class="btn">CONTINUE READING</button>
+        </div>
+        <footer class="note-footer">
+            Posted on <a href="#">April 10, 2013</a> by <a href="#">Ashier de Leon</a> - <a href="#">0 Comments</a>
+        </footer>
+    </article>
+</section>
+{% endblock content %}
+
+{% block page_script %}{% endblock page_script %}

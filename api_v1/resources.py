@@ -45,7 +45,7 @@ class PostResource(ModelResource):
     class Meta:
         queryset = Post.objects.all()
         list_allowed_methods = ['get']
-        excludes = ['modified']
+        excludes = ['modified', 'markdown_content']
         resource_name = 'note'
         authentication = MultiAuthentication(
             BasicAuthentication(), ApiKeyAuthentication())

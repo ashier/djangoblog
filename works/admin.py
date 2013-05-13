@@ -7,7 +7,7 @@ class ProjectAdmin(admin.ModelAdmin):
 
     fieldsets = [
         ('Projects', {
-            'fields': ('title', 'sub_title', 'content', 'categories', 'medium',)
+            'fields': ('title', 'sub_title', 'markdown_content', 'categories', 'medium',)
         }),
     ]
 

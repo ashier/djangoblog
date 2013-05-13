@@ -2,24 +2,29 @@ from django.contrib import admin
 from blog.models import Post, Category, Media
 
 
+class CategoryInline(admin.StackedInline):
+    model = Category
+
+
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'slug', 'created', 'modified',)
     list_filter = ('categories',)
-    search_fields = ('title', 'content',)
+    search_fields = ('title', 'markdown_content',)
 
     fieldsets = [
         ('Post', {
-            'fields': ('title', 'content', 'header_image', 'categories',)
+            'fields': ('title', 'markdown_content', 'header_image',)
+        }),
+        ('Categories', {
+            'fields': ('categories',)
         }),
         ('Author', {
             'fields': ('author',)
         }),
         ('History', {
-            'classes': ('collapse',),
             'fields': ('created', 'modified',)
         })
     ]
-
     readonly_fields = ('created', 'modified',)
 
 

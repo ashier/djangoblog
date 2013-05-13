@@ -14,7 +14,8 @@ class Migration(SchemaMigration):
             ('title', self.gf('django.db.models.fields.CharField')(unique=True, max_length=128)),
             ('sub_title', self.gf('django.db.models.fields.TextField')()),
             ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50)),
-            ('content', self.gf('django.db.models.fields.TextField')()),
+            ('markdown_content', self.gf('django.db.models.fields.TextField')()),
+            ('html_content', self.gf('django.db.models.fields.TextField')()),
         ))
         db.send_create_signal(u'works', ['Project'])
 
@@ -84,8 +85,9 @@ class Migration(SchemaMigration):
         u'works.project': {
             'Meta': {'object_name': 'Project'},
             'categories': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'related_name': "'categories'", 'null': 'True', 'symmetrical': 'False', 'to': u"orm['works.Category']"}),
-            'content': ('django.db.models.fields.TextField', [], {}),
+            'html_content': ('django.db.models.fields.TextField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'markdown_content': ('django.db.models.fields.TextField', [], {}),
             'medium': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['works.Media']", 'symmetrical': 'False'}),
             'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50'}),
             'sub_title': ('django.db.models.fields.TextField', [], {}),
