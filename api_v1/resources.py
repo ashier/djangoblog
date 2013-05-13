@@ -12,6 +12,7 @@ class WorkResource(ModelResource):
     class Meta:
         queryset = Project.objects.all()
         allowed_methods = ['get']
+        resource_name = 'work'
         authentication = MultiAuthentication(
             BasicAuthentication(), ApiKeyAuthentication())
 

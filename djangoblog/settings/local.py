@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'grappelli',
     'django.contrib.admin',
     'django.contrib.flatpages',
+    'django_extensions',
     #'django.contrib.admindocs',
     # 'disqus',
     'south',

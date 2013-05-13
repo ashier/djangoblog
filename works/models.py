@@ -1,20 +1,32 @@
 from django.db import models
-from django.template.defaultfilters import slugify
+from django.utils.translation import ugettext_lazy as _
+from django_extensions.db.models import TimeStampedModel
+from django_extensions.db.fields import AutoSlugField
 
 from markdown import markdown
 
 
-class Project(models.Model):
+class Project(TimeStampedModel):
 
     """Projects"""
 
+    TYPE_CHOICES = (
+        (1, "Web Application"),
+        (2, "Desktop Application"),
+        (3, "Mobile Application"),
+    )
+
     title = models.CharField(max_length=128, unique=True)
     sub_title = models.TextField()
-    slug = models.SlugField()
+    slug = AutoSlugField(_('slug'), populate_from='title')
     markdown_content = models.TextField()
+    website = models.URLField(null=True, blank=True)
+    location = models.CharField(max_length=128)
+    type = models.IntegerField(choices=TYPE_CHOICES, default=1)
     html_content = models.TextField(editable=False)
     medium = models.ManyToManyField("Media")
     categories = models.ManyToManyField("Category", related_name='categories', null=True, blank=True)
+    url = models.URLField(null=True, blank=True)
 
     def __unicode__(self):
         return self.title
@@ -25,8 +37,6 @@ class Project(models.Model):
 
     def save(self, *args, **kwargs):
         self.html_content = markdown(self.markdown_content)
-        if not self.slug:
-            self.slug = slugify(self.title)[:50]
         super(Project, self).save(*args, **kwargs)
 
 
@@ -49,7 +59,7 @@ class Category(models.Model):
     """Works Category"""
 
     name = models.CharField(max_length=128, unique=True)
-    slug = models.SlugField()
+    slug = AutoSlugField(_('slug'), populate_from='title')
 
     def __unicode__(self):
         return self.name
@@ -57,8 +67,3 @@ class Category(models.Model):
     class Meta:
         ordering = ('name',)
         verbose_name_plural = "Categories"
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)[:50]
-        super(Category, self).save(*args, **kwargs)

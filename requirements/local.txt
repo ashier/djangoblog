@@ -5,6 +5,7 @@ MySQL-python==1.2.4
 PIL==1.1.7
 South==0.7.6
 distribute==0.6.36
+django-extensions==1.1.1
 django-grappelli==2.4.4
 django-tastypie==0.9.14
 mimeparse==0.1.3

@@ -1,17 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.template.defaultfilters import slugify
+from django.utils.translation import ugettext_lazy as _
+from django_extensions.db.models import TimeStampedModel
+from django_extensions.db.fields import AutoSlugField
 
 from markdown import markdown
-
-
-class TimeStampedModel(models.Model):
-
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        abstract = True
 
 
 class UserFullName(User):
@@ -31,7 +24,7 @@ class Post(TimeStampedModel):
     markdown_content = models.TextField()
     html_content = models.TextField(editable=False)
     author = models.ForeignKey(UserFullName, related_name="author")
-    slug = models.SlugField()
+    slug = AutoSlugField(_('slug'), populate_from='title')
     header_image = models.ImageField(upload_to='post/%Y/%m/%d/', null=True, blank=True)
     categories = models.ManyToManyField("Category", related_name='categories', null=True, blank=True)
 
@@ -51,8 +44,6 @@ class Post(TimeStampedModel):
 
     def save(self, *args, **kwargs):
         self.html_content = markdown(self.markdown_content)
-        if not self.slug:
-            self.slug = slugify(self.title)[:50]
         super(Post, self).save(*args, **kwargs)
 
 
@@ -61,7 +52,7 @@ class Category(models.Model):
     """Post Category"""
 
     name = models.CharField(max_length=128, unique=True)
-    slug = models.SlugField()
+    slug = AutoSlugField(_('slug'), populate_from='name')
     posts = models.ManyToManyField("Post", related_name='posts', null=True, blank=True)
 
     def __unicode__(self):
@@ -70,11 +61,6 @@ class Category(models.Model):
     class Meta:
         ordering = ('name',)
         verbose_name_plural = "Categories"
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)[:50]
-        super(Category, self).save(*args, **kwargs)
 
 
 class Media(models.Model):
