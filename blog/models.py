@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from tinymce.models import HTMLField
 from django.template.defaultfilters import slugify
 
 
@@ -27,7 +26,7 @@ class Post(TimeStampedModel):
     """Post"""
 
     title = models.CharField(max_length=128)
-    content = HTMLField()
+    content = models.TextField()
     author = models.ForeignKey(UserFullName, related_name="author")
     slug = models.SlugField()
     header_image = models.ImageField(upload_to='post/%Y/%m/%d/', null=True, blank=True)
@@ -78,27 +77,10 @@ class Media(models.Model):
     """Public Media"""
 
     name = models.CharField(max_length=128, unique=True)
-    image = models.ImageField(upload_to='public/%Y/%m/%d/', null=True, blank=True)
+    image = models.ImageField(upload_to='post/%Y/%m/%d/', null=True, blank=True)
 
     def __unicode__(self):
         return self.name
 
     class Meta:
         verbose_name_plural = "medium"
-
-
-class Page(models.Model):
-
-    """Pages"""
-
-    name = models.CharField(max_length=128, unique=True)
-    slug = models.SlugField()
-    content = HTMLField()
-
-    def __unicode__(self):
-        return self.name
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)[:50]
-        super(Page, self).save(*args, **kwargs)

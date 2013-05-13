@@ -1,8 +1,23 @@
+from blog.models import Post, Category
+from works.models import Project
+
 from tastypie.resources import ModelResource
 from tastypie import fields
-from blog.models import Post, Category
 from tastypie.authentication import BasicAuthentication, ApiKeyAuthentication, MultiAuthentication
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
+
+
+class WorkResource(ModelResource):
+
+    class Meta:
+        queryset = Project.objects.all()
+        allowed_methods = ['get']
+        authentication = MultiAuthentication(
+            BasicAuthentication(), ApiKeyAuthentication())
+
+    def determine_format(self, request):
+        """ Automatic accept header to JSON format """
+        return "application/json"
 
 
 class CategoryResource(ModelResource):

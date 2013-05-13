@@ -14,7 +14,7 @@ class Migration(SchemaMigration):
             ('created', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('modified', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=128)),
-            ('content', self.gf('tinymce.models.HTMLField')()),
+            ('content', self.gf('django.db.models.fields.TextField')()),
             ('author', self.gf('django.db.models.fields.related.ForeignKey')(related_name='author', to=orm['auth.User'])),
             ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50)),
             ('header_image', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
@@ -34,7 +34,6 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=128)),
             ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50)),
-            ('post', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['blog.Post'], null=True, blank=True)),
         ))
         db.send_create_signal(u'blog', ['Category'])
 
@@ -45,15 +44,6 @@ class Migration(SchemaMigration):
             ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
         ))
         db.send_create_signal(u'blog', ['Media'])
-
-        # Adding model 'Page'
-        db.create_table(u'blog_page', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=128)),
-            ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50)),
-            ('content', self.gf('tinymce.models.HTMLField')()),
-        ))
-        db.send_create_signal(u'blog', ['Page'])
 
 
     def backwards(self, orm):
@@ -68,9 +58,6 @@ class Migration(SchemaMigration):
 
         # Deleting model 'Media'
         db.delete_table(u'blog_media')
-
-        # Deleting model 'Page'
-        db.delete_table(u'blog_page')
 
 
     models = {
@@ -107,7 +94,6 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "('name',)", 'object_name': 'Category'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '128'}),
-            'post': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['blog.Post']", 'null': 'True', 'blank': 'True'}),
             'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50'})
         },
         u'blog.media': {
@@ -116,18 +102,11 @@ class Migration(SchemaMigration):
             'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '128'})
         },
-        u'blog.page': {
-            'Meta': {'object_name': 'Page'},
-            'content': ('tinymce.models.HTMLField', [], {}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '128'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50'})
-        },
         u'blog.post': {
             'Meta': {'ordering': "('-created',)", 'object_name': 'Post'},
             'author': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'author'", 'to': u"orm['auth.User']"}),
             'categories': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'related_name': "'categories'", 'null': 'True', 'symmetrical': 'False', 'to': u"orm['blog.Category']"}),
-            'content': ('tinymce.models.HTMLField', [], {}),
+            'content': ('django.db.models.fields.TextField', [], {}),
             'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'header_image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
