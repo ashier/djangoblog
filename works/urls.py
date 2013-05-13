@@ -1,9 +1,8 @@
 from django.conf.urls import patterns, url
-from pages.views import IndexView, AboutView
+from works.views import IndexView
 
 
 urlpatterns = patterns(
-    'pages.views',
+    'works.views',
     url(r'^$', IndexView.as_view()),
-    url(r'^about/$', AboutView.as_view()),
 )

@@ -23,7 +23,6 @@ urlpatterns = patterns(
     url(r'^api/', include(v1_api.urls)),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^grappelli/', include('grappelli.urls')),
-    # url(r'^assets/(?P<path>.*)$', 'django.views.static.serve', {'document_root': 'static/'}),
     url(r'^notes/', include('blog.urls')),
-    url(r'', include('pages.urls')),
+    url(r'', include('works.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

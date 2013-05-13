@@ -1,0 +1,21 @@
+{% extends  "common/layout.html" %}
+{% block main_nav %}
+{% endblock main_nav %}
+{% block content %}
+<section>
+    <article>
+        <header>
+            <img src="{{ MEDIA_URL }}/page/2013/05/13/banner_about.png" >
+            <h1>{{ flatpage.title }}</h1>
+        </header>
+        <div class="note-content">
+            {{ flatpage.content }}
+        </div>
+        <footer class="note-footer">
+
+        </footer>
+    </article>
+</section>
+{% endblock content %}
+{% block footer %}{% endblock footer %}
+{% block page_script %}{%endblock page_script %}
