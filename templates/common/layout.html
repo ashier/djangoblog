@@ -10,19 +10,12 @@
             </h1>
         </a>
     </div>
-    <nav class="pull-right">
-        <ul>
-            {% block main_nav %}{% endblock main_nav %}
-        </ul>
+    <nav id="main-nav" class="pull-right">
+        {% block main_nav %}{% endblock main_nav %}
     </nav>
 </div>
 {% endblock header %}
 {% block base_script %}
-<script src="{{ STATIC_URL }}js/libs/jquery.min.js" async defer></script>
-<script src="{{ STATIC_URL }}js/libs/handlebars.js" async defer></script>
-<script src="{{ STATIC_URL }}js/libs/bootstrap.min.js" async defer></script>
-<script src="{{ STATIC_URL }}js/main.js" async defer></script>
-
 <!-- Base Template Scripts -->
 <script id="navigation-templete" type="text/x-handlebars-template">
     <li><a href="{{url}}">{{name}}}</a></li>

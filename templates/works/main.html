@@ -5,4 +5,6 @@
 works...
 {% endblock content %}
 {% block footer %}{% endblock footer %}
-{% block page_script %}{%endblock page_script %}
+{% block page_script %}
+<script data-main="{{ STATIC_URL }}js/works.config" src="{{ STATIC_URL }}js/libs/require.js"></script>
+{%endblock page_script %}

@@ -61,4 +61,6 @@
 </section>
 {% endblock content %}
 
-{% block page_script %}{% endblock page_script %}
+{% block page_script %}
+<script data-main="{{ STATIC_URL }}js/notes.config" src="{{ STATIC_URL }}js/libs/require.js"></script>
+{% endblock page_script %}
